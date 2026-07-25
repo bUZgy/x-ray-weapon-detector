@@ -16,7 +16,9 @@ import matplotlib.pyplot as plt
 
 # setup the webserver
 # port may need to be changed if there are multiple flask servers running on same server
-port = 12345
+import os
+
+port = int(os.environ.get("PORT", 10000))
 base_url = get_base_url(port)
 
 
@@ -120,7 +122,8 @@ def upload_file():
           image = base64.b64encode(image_base64).decode('utf-8')
 
           url = "https://detect.roboflow.com/outsident/1"
-          params = {"api_key": "V0EgyW40xJS7sGZUm9SH"}
+          params = {"api_key": os.environ["ROBOFLOW_API_KEY"]}
+            # "V0EgyW40xJS7sGZUm9SH"
           headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
           response = requests.post(url,
